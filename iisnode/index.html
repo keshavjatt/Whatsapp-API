@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>iisnode logs</title>
+    <style type="text/css">
+        body
+        {
+            font-family: "Trebuchet MS" , Arial, Helvetica, sans-serif;
+        }
+        table
+        {
+            border-collapse: collapse;
+        }
+        td, th
+        {
+            border: 1px solid lightgray;
+            padding: 3px 7px 2px 7px;
+        }
+        th
+        {
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: Gray;
+            color: #ffffff;
+        }
+        td.stderr
+        {
+            color: Red;
+        }
+    </style>
+</head>
+<body>
+    <table id="logFilesTable">
+        <tr>
+            <th>
+                Computer name
+            </th>
+            <th>
+                PID
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </table>
+    <p id="lastUpdated"></p>
+    <script type="text/javascript">
+
+        // this is replaced with actual data at runtime by code in interceptor.js
+        var logFiles = [{"file":"179-86-74-97-6892-stderr-1700486170085.txt","computername":"179-86-74-97","pid":6892,"type":"stderr","created":1700486170085},{"file":"179-86-74-97-6892-stdout-1700486170084.txt","computername":"179-86-74-97","pid":6892,"type":"stdout","created":1700486170084},{"file":"XSOL-APPDEVLOPM-10216-stderr-1695401933871.txt","computername":"XSOL-APPDEVLOPM","pid":10216,"type":"stderr","created":1695401933871},{"file":"XSOL-APPDEVLOPM-10216-stdout-1695401933868.txt","computername":"XSOL-APPDEVLOPM","pid":10216,"type":"stdout","created":1695401933868},{"file":"XSOL-APPDEVLOPM-4976-stderr-1695401737444.txt","computername":"XSOL-APPDEVLOPM","pid":4976,"type":"stderr","created":1695401737444},{"file":"XSOL-APPDEVLOPM-4976-stdout-1695401737440.txt","computername":"XSOL-APPDEVLOPM","pid":4976,"type":"stdout","created":1695401737440},{"file":"XSOL-APPDEVLOPM-7156-stderr-1695401466790.txt","computername":"XSOL-APPDEVLOPM","pid":7156,"type":"stderr","created":1695401466790},{"file":"XSOL-APPDEVLOPM-7156-stdout-1695401466789.txt","computername":"XSOL-APPDEVLOPM","pid":7156,"type":"stdout","created":1695401466789},{"file":"XSOL-APPDEVLOPM-7380-stderr-1695401578682.txt","computername":"XSOL-APPDEVLOPM","pid":7380,"type":"stderr","created":1695401578682},{"file":"XSOL-APPDEVLOPM-7380-stdout-1695401578680.txt","computername":"XSOL-APPDEVLOPM","pid":7380,"type":"stdout","created":1695401578680},{"file":"XSOL-APPDEVLOPM-9764-stderr-1695401268147.txt","computername":"XSOL-APPDEVLOPM","pid":9764,"type":"stderr","created":1695401268147},{"file":"XSOL-APPDEVLOPM-9764-stdout-1695401268146.txt","computername":"XSOL-APPDEVLOPM","pid":9764,"type":"stdout","created":1695401268146}];
+        var lastUpdated = 1700486171536;
+        var date = new Date();
+
+        date.setTime(lastUpdated);
+        document.getElementById('lastUpdated').innerHTML = 'Index was last updated ' + date;
+
+        logFiles.sort(function (a, b) {
+            return b.created - a.created;
+        });
+
+        var logFilesTable = document.getElementById("logFilesTable");
+        for (var i = 0; i < logFiles.length; i++) {
+            var logFile = logFiles[i];
+            date.setTime(logFile.created);
+            var row = logFilesTable.insertRow(-1);
+            var computerNameCell = row.insertCell(0);
+            var pidCell = row.insertCell(1);
+            var typeCell = row.insertCell(2);
+            var dateCell = row.insertCell(3);
+            var logCell = row.insertCell(4);
+            computerNameCell.innerHTML = logFile.computername;
+            pidCell.innerHTML = logFile.pid.toString();
+            typeCell.innerHTML = logFile.type;
+            typeCell.setAttribute('class', logFile.type);
+            dateCell.innerHTML = date.toString();
+            logCell.innerHTML = '<a href="' + logFile.file + '">log</a>';
+        };
+
+    </script>
+</body>
+</html>
