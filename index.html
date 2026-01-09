@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #qr-code {
+            margin: 20px 0;
+            text-align: center;
+        }
+        #qr-code img {
+            max-width: 300px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .connected { background-color: #d4edda; color: #155724; }
+        .disconnected { background-color: #f8d7da; color: #721c24; }
+        .loading { background-color: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WhatsApp Web API</h1>
+        <div id="status" class="status loading">Connecting to WhatsApp...</div>
+        <div id="qr-code"></div>
+        <div id="messages"></div>
+        
+        <h2>Test Endpoints:</h2>
+        <div>
+            <h3>1. Check Status:</h3>
+            <code>GET http://localhost:8000/status</code>
+        </div>
+        <div>
+            <h3>2. Send Message:</h3>
+            <code>POST http://localhost:8000/send-message</code><br>
+            <pre>{
+    "number": "918287698319",
+    "message": "Hello from WhatsApp API"
+}</pre>
+        </div>
+        
+        
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+        
+        socket.on('qr', (url) => {
+            document.getElementById('qr-code').innerHTML = `
+                <h3>Scan QR Code:</h3>
+                <img src="${url}" alt="QR Code">
+                <p>Open WhatsApp > Settings > Linked Devices > Link a Device</p>
+            `;
+            document.getElementById('status').className = 'status loading';
+            document.getElementById('status').innerHTML = 'Please scan QR code to connect WhatsApp';
+        });
+        
+        socket.on('ready', (message) => {
+            document.getElementById('status').className = 'status connected';
+            document.getElementById('status').innerHTML = '✅ WhatsApp is connected and ready!';
+            document.getElementById('qr-code').innerHTML = '';
+        });
+        
+        socket.on('authenticated', (message) => {
+            document.getElementById('status').className = 'status connected';
+            document.getElementById('status').innerHTML = '✅ ' + message;
+        });
+        
+        socket.on('message', (message) => {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += `<p>${new Date().toLocaleTimeString()}: ${message}</p>`;
+        });
+        
+        socket.on('disconnect', () => {
+            document.getElementById('status').className = 'status disconnected';
+            document.getElementById('status').innerHTML = '❌ Disconnected from server';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "a396a5ec-3b4f-4506-b04f-8baf3d4f5f23",
+		"name": "Whatsapp_Web-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25768342",
+		"_collection_link": "https://red-shadow-344572.postman.co/workspace/Team-Workspace~ae4a760b-59b6-4d3f-8083-6d8e69000652/collection/25768342-a396a5ec-3b4f-4506-b04f-8baf3d4f5f23?action=share&source=collection_link&creator=25768342"
+	},
+	"item": [
+		{
+			"name": "Send Message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"number\": \"918287698319\",\r\n    \"message\": \"Hello from WhatsApp API\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/send-message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"send-message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

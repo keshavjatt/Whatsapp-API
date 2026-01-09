@@ -1,0 +1,11 @@
+(node:6892) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Application has thrown an uncaught exception and is terminated:
+ProtocolError: Protocol error (Runtime.callFunctionOn): Target closed.
+    at C:\inetpub\wwwroot\Node Api\node_modules\puppeteer\lib\cjs\puppeteer\common\Connection.js:230:24
+    at new Promise (<anonymous>)
+    at CDPSession.send (C:\inetpub\wwwroot\Node Api\node_modules\puppeteer\lib\cjs\puppeteer\common\Connection.js:226:16)
+    at ExecutionContext._evaluateInternal (C:\inetpub\wwwroot\Node Api\node_modules\puppeteer\lib\cjs\puppeteer\common\ExecutionContext.js:204:50)
+    at ExecutionContext.evaluateHandle (C:\inetpub\wwwroot\Node Api\node_modules\puppeteer\lib\cjs\puppeteer\common\ExecutionContext.js:155:21)
+    at WaitTask.rerun (C:\inetpub\wwwroot\Node Api\node_modules\puppeteer\lib\cjs\puppeteer\common\DOMWorld.js:551:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
